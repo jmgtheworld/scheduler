@@ -5,7 +5,7 @@ var classNames = require('classnames');
 
 export default function DayListItem(props) {
 
-  const {spots, name, selected, setDay} = props;
+  const {spots, selected} = props;
 
   const dayClass = classNames("day-list__item", {
     "day-list__item--selected": selected,
@@ -24,8 +24,8 @@ export default function DayListItem(props) {
   }
 
   return (
-    <li className = {dayClass} onClick = {setDay}>
-      <h2 className="text--regular"> {name} </h2> 
+    <li className = {dayClass} onClick = {props.setItem}>
+      <h2 className="text--regular"> {props.name} </h2> 
       <h3 className="text--light"> {formatSpots(spots) + " remaining"} </h3>
     </li>
   );
