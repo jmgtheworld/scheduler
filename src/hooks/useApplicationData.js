@@ -26,6 +26,20 @@ export default function useApplicationData(initial) {
     });
   },[])
 
+  const changedDay = (state) => {
+    const updatedDays = [];
+      for (let day of state.days) {
+        let updatedSpots = 0;
+        day.appointments.forEach( (appointmentid) => {
+          if (state.appointments[appointmentid].interview === null) {
+            updatedSpots++
+          }
+        })
+        updatedDays.push({...day, spots: updatedSpots})
+      }  
+      return updatedDays
+    }
+
   function bookInterview(id, interview) {
     console.log(id, interview);
 
@@ -39,29 +53,16 @@ export default function useApplicationData(initial) {
       [id]: appointment
     };
 
-    const changedDay = (id) => {
-      for (let day in state.days) {
-        if (state.days[day].appointments.includes(id)){
-          return day
-        }
-      }  
-    }
-
-    const day = {
-      ...state.days[changedDay],
-      spots: "2"
-    };
-
-    const spots = {
-      ...state.days,
-      [changedDay] : day
-    }
-
- 
   
-    return axios.put(`/api/appointments/${id}`, {interview})
+
+    return axios.put(`/api/appointments/${appointment.id}`, appointment)
     .then((all) => {
-      setState({...state, appointments, spots})
+      setState(prev => {
+        const newState = {...prev, appointments}
+        let updatedDays = changedDay(newState)
+        newState.days = updatedDays
+        return newState
+      })
     })
   }
 
@@ -69,7 +70,7 @@ export default function useApplicationData(initial) {
 
     const appointment = {
       ...state.appointments[id],
-      interview: { ...interview }
+      interview: null
     };
 
     const appointments = {
@@ -77,9 +78,14 @@ export default function useApplicationData(initial) {
       [id]: appointment
     };
 
-    return axios.delete(`/api/appointments/${id}`)
+    return axios.delete(`/api/appointments/${appointment.id}`, appointment)
     .then((all) => {
-      setState({...state, appointments})
+      setState(prev => {
+        const newState = {...prev, appointments}
+        let updatedDays = changedDay(newState)
+        newState.days = updatedDays
+        return newState
+      })
     })
   }
 
