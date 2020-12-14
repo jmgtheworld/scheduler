@@ -40,13 +40,14 @@ export function getInterviewersForDay(state, day) {
   if (!filteredDay[0]){
     return array;
   }
-  const appointmentsForFilteredDay = filteredDay[0].appointments;
+  
+  const appointmentsForFilteredDay = filteredDay[0].interviewers;
 
   if (appointmentsForFilteredDay.length) {
     for(let appointment of appointmentsForFilteredDay) {
       array.push(state.interviewers[appointment])
     }
   } 
-
+  console.log(array)
   return array;
 }
