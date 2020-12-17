@@ -49,3 +49,13 @@ On a different terminal, run the following to start cypress
 ```sh
 npm run cypress
 ```
+
+
+## Screenshots
+!["Appointment form of scheduler app"](https://github.com/jmgtheworld/scheduler/blob/master/docs/Appointment-form.png?raw=true)
+
+!["Appointment form with name error when user tries to submit form with empty name"](https://github.com/jmgtheworld/scheduler/blob/master/docs/Appointment-form-name-error.png?raw=true)
+
+!["Appointment form with interviewer error when user tries to submit form without selecting an interviewer"](https://github.com/jmgtheworld/scheduler/blob/master/docs/Appointment-form-interviewer-error.png?raw=true)
+
+!["Appointment form asking confirmation for deleting an existing appointment"](https://github.com/jmgtheworld/scheduler/blob/master/docs/Appointment-form-confirm-delete.png?raw=true)
